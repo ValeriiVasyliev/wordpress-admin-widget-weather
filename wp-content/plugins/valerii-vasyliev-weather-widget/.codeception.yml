@@ -4,7 +4,7 @@ paths:
     data: .codeception/_data
     support: .codeception/_support
     envs: .codeception/_envs
-actor_suffix: Pluginname
+actor_suffix: WeatherWidget
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
@@ -19,4 +19,4 @@ coverage:
     high_limit: 60
     show_only_summary: false
     include:
-        - ./wp-content/plugins/plugin-name/src/*
+        - ./src/*

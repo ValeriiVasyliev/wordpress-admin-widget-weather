@@ -30,7 +30,7 @@ use Codeception\Actor;
  *
  * @SuppressWarnings(PHPMD)
  */
-class AcceptancePluginname extends Actor {
+class AcceptanceWeatherWidget extends Actor {
 
 	use _generated\AcceptanceTesterActions;
 }

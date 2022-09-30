@@ -1,6 +1,12 @@
 <?php
-
 /**
+ * WordPress Weather Dashboard Widget
+ *
+ * @package           valerii-vasyliev-weather-widget
+ * @author            Valerii Vasyliev
+ * @license           GPL-2.0-or-later
+ * @wordpress-plugin
+ *
  * Plugin Name:         WordPress Weather Dashboard Widget
  * Description:         WordPress Weather Dashboard Widget
  * Version:             1.0.0
@@ -8,47 +14,45 @@
  * Requires PHP:        7.4
  * Author:              Valerii Vasyliev
  * Author URI:          https://valera.codes/
- * License:             MIT
+ * License:             GPL-2.0-or-later
  * Text Domain:         valerii-vasyliev-weather-widget
  */
 
-// Exit if accessed directly.
-if (! defined('ABSPATH')) {
-    exit;
+namespace WeatherWidget;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	// @codeCoverageIgnoreStart
+	exit;
+	// @codeCoverageIgnoreEnd
 }
 
-use WeatherWidget\Plugin;
-use Auryn\Injector;
-
-define('PLUGIN_NAME_DIR', plugin_dir_path(__FILE__));
-define('PLUGIN_NAME_URL', plugin_dir_url(__FILE__));
-
-require_once PLUGIN_NAME_DIR . 'vendor/autoload.php';
-
-function activateWeatherWidget(): void
-{
+if ( defined( 'WEATHER_WIDGET_VERSION' ) ) {
+	return;
 }
-
-register_activation_hook(__FILE__, 'activateWeatherWidget');
-
-function deactivateWeatherWidget(): void
-{
-}
-
-register_deactivation_hook(__FILE__, 'deactivateWeatherWidget');
 
 /**
- * @throws \Auryn\InjectionException
+ * Plugin version.
  */
-function run_plugin_name()
-{
-    load_plugin_textdomain('valerii-vasyliev-weather-widget', false, PLUGIN_NAME_DIR . '/languages/');
+define( 'WEATHER_WIDGET_VERSION', '1.0.0' );
 
-    $injector = new Injector();
+/**
+ * Path to the plugin dir.
+ */
+define( 'WEATHER_WIDGET_PATH', __DIR__ );
 
-    ( $injector->make(Plugin::class) )->run();
+/**
+ * Plugin dir url.
+ */
+define( 'WEATHER_WIDGET_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
 
-    do_action('plugin_name_init', $injector);
-}
+/**
+ * Main plugin file.
+ */
+define( 'WEATHER_WIDGET_FILE', __FILE__ );
 
-add_action('plugins_loaded', 'run_plugin_name');
+/**
+ * Init plugin on plugin load.
+ */
+require_once constant( 'WEATHER_WIDGET_PATH' ) . '/vendor/autoload.php';
+
+( new Plugin( new API() ) )->init();

@@ -1,23 +1,45 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: WordPress Weather Dashboard Widget\n"
-"POT-Creation-Date: 2022-09-30 14:44+0800\n"
-"PO-Revision-Date: 2022-09-30 14:44+0800\n"
+"POT-Creation-Date: 2022-09-30 23:21+0800\n"
+"PO-Revision-Date: 2022-09-30 23:21+0800\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: plugin.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: \n"
-"Language: en_GB\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: src/Plugin.php:80
+msgid "Weather Dashboard Widget"
+msgstr ""
+
+#: src/Plugin.php:104 src/Plugin.php:111
+msgid "F"
+msgstr ""
+
+#: src/Settings.php:34
+msgid "WordPress Weather Dashboard Widget "
+msgstr ""
+
+#: src/Settings.php:35
+msgid "API Key for openweathermap.org"
+msgstr ""
+
+#: src/Settings.php:36
+msgid "Default city"
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 #. Description of the plugin/theme

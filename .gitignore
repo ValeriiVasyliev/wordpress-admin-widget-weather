@@ -27,6 +27,7 @@ wp-content/plugins/*
 !wp-content/plugins/valerii-vasyliev-weather-widget/
 wp-content/plugins/valerii-vasyliev-weather-widget/composer.lock
 wp-content/plugins/valerii-vasyliev-weather-widget/vendor/*
+wp-content/plugins/valerii-vasyliev-weather-widget/.phpcs.cache
 
 # Ignore everything in the "themes" directory, except the themes you
 # specify (see the commented-out example for a hint on how to do this.)
