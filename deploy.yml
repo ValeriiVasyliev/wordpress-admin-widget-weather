@@ -1,0 +1,12 @@
+.base: &base
+  hostname: 165.227.139.182
+  user: deployer
+  application: vormats
+  repository: git@vormats.github.com:GrattaWebDesignStudio/vormats-site.git
+  branch: main
+
+main:
+  <<: *base
+  stage: main
+  branch: main
+  deploy_path: /var/www/vormats-stage.gratta.pro/

@@ -1,0 +1,69 @@
+name: Deploy
+
+on:
+  deployment:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - dev
+    paths-ignore:
+      - "**.md"
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set custom environment variables
+        run: |
+          BRANCH=${GITHUB_REF#refs/heads/}
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 7.4
+
+      - name: Setup Deployer for prod
+        uses: atymic/deployer-php-action@master
+        if: github.ref == 'refs/heads/main'
+        with:
+          ssh-private-key: ${{ secrets.SSH_PROD_PRIVATE_KEY }}
+          ssh-known-hosts: ${{ secrets.SSH_PROD_KNOWN_HOSTS }}
+          deployer-version: "v6.8.0"
+
+      - name: Deploy to prod
+        if: github.ref == 'refs/heads/main'
+        env:
+          SSH_HOST: ${{ secrets.SSH_PROD_HOST }}
+          SSH_USER: ${{ secrets.SSH_PROD_USER }}
+          DEPLOY_PATH: ${{ secrets.SSH_PROD_DEPLOY_PATH }}
+        run: dep deploy main -vvvv
+
+      - name: Setup Deployer for dev
+        uses: atymic/deployer-php-action@master
+        if: github.ref == 'refs/heads/dev'
+        with:
+          ssh-private-key: ${{ secrets.SSH_DEV_PRIVATE_KEY }}
+          ssh-known-hosts: ${{ secrets.SSH_DEV_KNOWN_HOSTS }}
+          deployer-version: "v6.8.0"
+
+      - name: Deploy to dev
+        if: github.ref == 'refs/heads/dev'
+        env:
+          SSH_HOST: ${{ secrets.SSH_DEV_HOST }}
+          SSH_USER: ${{ secrets.SSH_DEV_USER }}
+          DEPLOY_PATH: ${{ secrets.SSH_DEV_DEPLOY_PATH }}
+        run: |
+          dep deploy dev -vvvv
+
+      - name: Unlock Deployer
+        if: ${{ cancelled() }}
+        run: |
+          if hash dep 2>/dev/null; then
+            dep deploy:unlock $BRANCH
+          fi;

@@ -1,0 +1,67 @@
+{
+  "version": "0.1.0",
+  "vendor-dir": "vendor",
+  "classmap-authoritative": true,
+  "sort-packages": true,
+  "preferred-install": "dist",
+  "config": {
+    "classmap-authoritative": true,
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "platform": {
+      "php": "7.4.11",
+      "ext-mbstring": "1",
+      "ext-intl": "1"
+    },
+    "process-timeout": 0
+  },
+  "authors": [
+    {
+      "name": "Valerii Vasyliev",
+      "homepage": "https://valera.codes/"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org",
+      "only": ["wpackagist-plugin/*", "wpackagist-theme/*"]
+    }
+  ],
+  "require": {
+    "inpsyde/wonolog": "^1.0"
+  },
+   "require-dev": {
+    "brainmaestro/composer-git-hooks": "^2.8",
+    "wp-cli/wp-cli": ">=1.1.0"
+  },
+  "extra": {
+    "installer-paths": {
+      "wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "wp-content/themes/{$name}/": ["type:wordpress-theme"]
+    },
+    "hooks": {
+      "config": {
+        "stop-on-failure": ["pre-push","pre-commit","commit-msg"]
+      },
+      "pre-commit": "composer cs-fix"
+    },
+    "phpcodesniffer-search-depth": 1
+  },
+  "scripts": {
+    "cghooks": "./vendor/bin/cghooks update",
+    "build": [
+      "composer install",
+      "composer install --working-dir=wp-content/plugins/plugin-name"
+    ],
+    "init-project": [
+      "composer build",
+      "vendor/wp-cli/wp-cli/bin/wp core download"
+    ],
+    "post-install-cmd": "cghooks add --ignore-lock",
+    "post-update-cmd": "cghooks update"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
