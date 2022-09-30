@@ -55,4 +55,4 @@ define( 'WEATHER_WIDGET_FILE', __FILE__ );
  */
 require_once constant( 'WEATHER_WIDGET_PATH' ) . '/vendor/autoload.php';
 
-( new Plugin( new API() ) )->init();
+( new Plugin( new Api() ) )->init();

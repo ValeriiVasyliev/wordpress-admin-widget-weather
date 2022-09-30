@@ -1,7 +1,7 @@
 <?php
 namespace WeatherWidgetTests;
 
-use WeatherWidget\API;
+use WeatherWidget\Api;
 use WeatherWidgetTests\TestCase;
 use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\when;

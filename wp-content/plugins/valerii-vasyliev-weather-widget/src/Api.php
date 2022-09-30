@@ -8,9 +8,9 @@
 namespace WeatherWidget;
 
 /**
- * Class API
+ * Class Api
  */
-class API {
+class Api {
 
 	/**
 	 * Endpoint remote.
