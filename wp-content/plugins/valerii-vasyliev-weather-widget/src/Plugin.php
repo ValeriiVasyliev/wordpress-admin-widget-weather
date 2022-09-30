@@ -105,7 +105,7 @@ class Plugin {
 
 		$output .= '
 				<div class="weather-todays-stats">
-					<div class="awe_desc">' . $data['valerii-vasyliev-weather-widget'][0]['description'] . '</div>
+					<div class="awe_desc">' . $data['weather'][0]['description'] . '</div>
 						<div class="awe_humidty">humidity: ' . $data['main']['humidity'] . '% </div>
 						<div class="awe_wind">wind: ' . $data['wind']['speed'] . 'km/h ' . $data['wind']['deg'] . '</div>
 						<div class="awe_highlow">H: ' . $today_high . ' °' . __( 'F', 'valerii-vasyliev-weather-widget' ) . ' &bull; L: ' . $today_low . ' °' . __( 'F', 'valerii-vasyliev-weather-widget' ) . '
