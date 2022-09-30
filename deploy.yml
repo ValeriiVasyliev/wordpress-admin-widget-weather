@@ -1,12 +1,12 @@
 .base: &base
   hostname: 165.227.139.182
   user: deployer
-  application: vormats
-  repository: git@vormats.github.com:GrattaWebDesignStudio/vormats-site.git
+  application: widget-weather
+  repository: git@widget-weather.github.com:ValeriiVasyliev/wordpress-admin-widget-weather.git
   branch: main
 
 main:
   <<: *base
   stage: main
   branch: main
-  deploy_path: /var/www/vormats-stage.gratta.pro/
+  deploy_path: /var/www/test.gratta.pro/

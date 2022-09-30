@@ -7,7 +7,6 @@
 !wp-cli.yml
 !wp-content/
 !.github/
-!.githooks/
 
 
 # Ignore everything in the "wp-content" directory, except the "plugins"

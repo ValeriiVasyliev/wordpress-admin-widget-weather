@@ -8,8 +8,6 @@ A skeleton WordPress project to be used as a base for new WordPress projects.
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Structure](#structure)
-* [Deployment](#deployment)
-* [Frontend](#frontend)
 * [PHP Coding Standard (PHPCS)](#php-coding-standard)
 * [Clean up code with PHPCBF](#clean-up-code-with-phpcbf)
 * [PHP unit tests](#php-unit-tests)
@@ -18,9 +16,7 @@ A skeleton WordPress project to be used as a base for new WordPress projects.
 
 | Environments | Sites                   |
 | ------------ | ----------------------- |
-| Development  | # |
-| Stage  | # |
-| Production   | # |
+| Production   | https://test.gratta.pro/ |
 
 ## Requirements
 
@@ -90,13 +86,3 @@ composer unit
 - You can also add some code to `PluginNameUnitTests\TestCase.php`
 - Each test method must have prefix `test_`
 - Additional files for autoloading in tests running you can add to `.codeception/_support/*` folder.
-
-## Monolog
-
-Monolog-based logging package for WordPress.
-
-Need to add a line to wp-config.php
-
-````
-require_once(ABSPATH . '/vendor/autoload.php'); 
-````

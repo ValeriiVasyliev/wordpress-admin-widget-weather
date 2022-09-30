@@ -28,11 +28,7 @@
       "only": ["wpackagist-plugin/*", "wpackagist-theme/*"]
     }
   ],
-  "require": {
-    "inpsyde/wonolog": "^1.0"
-  },
-   "require-dev": {
-    "brainmaestro/composer-git-hooks": "^2.8",
+  "require-dev": {
     "wp-cli/wp-cli": ">=1.1.0"
   },
   "extra": {
@@ -41,26 +37,17 @@
       "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
       "wp-content/themes/{$name}/": ["type:wordpress-theme"]
     },
-    "hooks": {
-      "config": {
-        "stop-on-failure": ["pre-push","pre-commit","commit-msg"]
-      },
-      "pre-commit": "composer cs-fix"
-    },
     "phpcodesniffer-search-depth": 1
   },
   "scripts": {
-    "cghooks": "./vendor/bin/cghooks update",
     "build": [
       "composer install",
-      "composer install --working-dir=wp-content/plugins/plugin-name"
+      "composer install --working-dir=wp-content/plugins/valerii-vasyliev-weather-widget"
     ],
     "init-project": [
       "composer build",
       "vendor/wp-cli/wp-cli/bin/wp core download"
-    ],
-    "post-install-cmd": "cghooks add --ignore-lock",
-    "post-update-cmd": "cghooks update"
+    ]
   },
   "minimum-stability": "dev",
   "prefer-stable": true

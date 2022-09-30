@@ -71,9 +71,7 @@ set('clear_paths', [
 	'wp-content/plugins/hello.php',
 	'wp-content/themes/twentynineteen',
 	'wp-content/themes/twentytwenty',
-	'wp-content/themes/twentytwentyone',
-	'wp-content/themes/vormats/gulp',
-	'.githooks'
+	'wp-content/themes/twentytwentyone'
 ]);
 
 // Tasks
@@ -85,8 +83,6 @@ task('deploy', [
 	'deploy:release',
 	'deploy:update_code',
 	'install_composer_dependencies',
-	'install_nodejs_dependencies',
-	'webpack_build',
 	'deploy:shared',
 	'deploy:writable',
 	'deploy:vendors',
@@ -99,19 +95,6 @@ task('deploy', [
 
 task('install_composer_dependencies', function () {
 	run('cd {{release_path}} && composer build', [
-		'timeout' => 1800,
-	]);
-});
-
-
-task('install_nodejs_dependencies', function () {
-	run('cd {{release_path}}/wp-content/themes/vormats/gulp/ && npm install', [
-		'timeout' => 1800,
-	]);
-});
-
-task('webpack_build', function () {
-	run('cd {{release_path}}/wp-content/themes/vormats/gulp/ && npm run build', [
 		'timeout' => 1800,
 	]);
 });
