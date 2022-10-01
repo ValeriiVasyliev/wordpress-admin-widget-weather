@@ -16,13 +16,14 @@ class Settings {
 	 * Init class.
 	 */
 	public function init() : void {
+
 		$this->hooks();
 	}
 
 	/**
 	 * Init hooks
 	 */
-	public function hooks(): void {
+	protected function hooks(): void {
 		add_action( 'admin_init', [ $this, 'options_fields' ] );
 	}
 

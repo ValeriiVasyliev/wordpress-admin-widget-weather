@@ -46,11 +46,11 @@ class Plugin {
 	 *
 	 * @return void
 	 */
-	private function hooks() {
+	protected function hooks() {
+
 		add_action( 'plugins_loaded', [ $this, 'load_plugin_textdomain' ] );
 		add_action( 'wp_dashboard_setup', [ $this, 'add_dashboard_widgets' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_weather_style' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_weather_script' ] );
 	}
 
 	/**
@@ -59,16 +59,6 @@ class Plugin {
 	public function enqueue_weather_style() : void {
 		wp_register_style( 'weather_widget_style', WEATHER_WIDGET_URL . '/assets/css/weather.css', [], WEATHER_WIDGET_VERSION );
 		wp_enqueue_style( 'weather_widget_style' );
-	}
-
-
-	/**
-	 * Enqueue widget javascript
-	 */
-	public function enqueue_weather_script() : void {
-
-		wp_register_script( 'weather_widget_script', WEATHER_WIDGET_URL . '/assets/js/weather.js', [], WEATHER_WIDGET_VERSION, false );
-		wp_enqueue_script( 'weather_widget_script' );
 	}
 
 	/**
@@ -137,16 +127,5 @@ class Plugin {
 			false,
 			dirname( plugin_basename( WEATHER_WIDGET_FILE ) ) . '/languages/'
 		);
-	}
-
-	/**
-	 * Exit method.
-	 * We need this method to cover methods using 'exit' by phpunit test,
-	 * as php 'exit' statement is impossible to mock.
-	 */
-	protected function php_exit(): void {
-		// @codeCoverageIgnoreStart
-		exit;
-		// @codeCoverageIgnoreEnd
 	}
 }

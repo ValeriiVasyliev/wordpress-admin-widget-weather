@@ -2,16 +2,41 @@
 namespace WeatherWidgetTests;
 
 use WeatherWidget\Api;
-use WeatherWidgetTests\TestCase;
 use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\when;
-use function Brain\Monkey\Functions\stubs;
-use function Brain\Monkey\Actions\expectDone;
-use function Brain\Monkey\Filters\expectApplied;
 
 class ApiTest extends TestCase {
 
-	public function test_get_weather() {
+	protected $instance;
 
+	/**
+	 * Sets the instance.
+	 */
+	protected function setUp(): void {
+		parent::setUp();
+
+		$this->instance = \Mockery::mock( Api::class)->makePartial();
+	}
+
+	public function test_get_weather_none_cached() {
+
+		when( '\get_transient' )->justReturn( false );
+
+		when('\wp_remote_get')->justReturn(['body' => '{"test":"response"}']);
+
+		expect( '\set_transient' )->once()->andReturn( true );
+
+		$this->instance->get_weather();
+	}
+
+	public function test_get_weather_cached() {
+
+		when( '\get_transient' )->justReturn(['test' => 'response']);
+
+		expect( '\wp_remote_get' )->never();
+
+		expect( '\set_transient' )->never();
+
+		$this->instance->get_weather();
 	}
 }
