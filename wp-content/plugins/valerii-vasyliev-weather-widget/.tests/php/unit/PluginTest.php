@@ -16,9 +16,12 @@ class PluginTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->instance = \Mockery::mock( Plugin::class, [Api::class])->makePartial();
+		$this->instance = \Mockery::mock( Plugin::class, [ Api::class ] )->makePartial();
 	}
 
+	/**
+	 * Test init() method
+	 */
 	public function test_init(): void {
 
 		expect( '\is_admin' )
@@ -26,26 +29,32 @@ class PluginTest extends TestCase {
 			->withNoArgs()
 			->andReturn( true );
 
-		$mock = \Mockery::mock( Plugin::class, [Api::class])->makePartial()->shouldAllowMockingProtectedMethods();
+		$mock = \Mockery::mock( Plugin::class, [ Api::class ] )->makePartial()->shouldAllowMockingProtectedMethods();
 
 		$mock->shouldReceive( 'hooks' )->once();
 
 		$mock->init();
 	}
 
+	/**
+	 * Test hooks() method
+	 */
 	public function test_hooks(): void {
 
 		$this->instance->hooks();
 
-		$this->assertSame( 10, has_action('plugins_loaded', [$this->instance, 'load_plugin_textdomain']));
-		$this->assertSame( 10, has_action('wp_dashboard_setup', [$this->instance, 'add_dashboard_widgets']));
-		$this->assertSame( 10, has_action('admin_enqueue_scripts', [$this->instance, 'enqueue_weather_style']));
+		$this->assertSame( 10, has_action( 'plugins_loaded', [ $this->instance, 'load_plugin_textdomain' ] ) );
+		$this->assertSame( 10, has_action( 'wp_dashboard_setup', [ $this->instance, 'add_dashboard_widgets' ] ) );
+		$this->assertSame( 10, has_action( 'admin_enqueue_scripts', [ $this->instance, 'enqueue_weather_style' ] ) );
 	}
 
 
+	/**
+	 * Test enqueue_weather_style() method
+	 */
 	public function test_enqueue_weather_style() : void {
 
-		expect('\wp_register_style')
+		expect( '\wp_register_style' )
 			->once()
 			->with(
 				'weather_widget_style',
@@ -54,13 +63,16 @@ class PluginTest extends TestCase {
 				WEATHER_WIDGET_VERSION
 			);
 
-		expect('\wp_enqueue_style')
+		expect( '\wp_enqueue_style' )
 			->once()
-			->with('weather_widget_style');
+			->with( 'weather_widget_style' );
 
 		$this->instance->enqueue_weather_style();
 	}
 
+	/**
+	 * Test add_dashboard_widgets() method
+	 */
 	public function test_add_dashboard_widgets() : void {
 
 		expect( '\esc_html__' )
@@ -73,76 +85,82 @@ class PluginTest extends TestCase {
 		$this->instance->add_dashboard_widgets();
 	}
 
+	/**
+	 * Test weather_dashboard_widget_render() method
+	 */
 	public function test_weather_dashboard_widget_render(): void {
 
 		$result = [
-			"coord" => [
-				"lon" => 151.2667,
-				"lat" => -33.7667
+			'coord'      => [
+				'lon' => 151.2667,
+				'lat' => -33.7667,
 			],
-			"weather" => [
+			'weather'    => [
 				[
-					"id" => 500,
-					"main" => "Rain",
-					"description" => "light rain",
-					"icon" => "10n"
-				]
+					'id'          => 500,
+					'main'        => 'Rain',
+					'description' => 'light rain',
+					'icon'        => '10n',
+				],
 			],
-			"base" => "stations",
-			"main" => [
-				"temp" => 284.55,
-				"feels_like" => 284.07,
-				"temp_min" => 282.86,
-				"temp_max" => 286.11,
-				"pressure" => 1020,
-				"humidity" => 89
+			'base'       => 'stations',
+			'main'       => [
+				'temp'       => 284.55,
+				'feels_like' => 284.07,
+				'temp_min'   => 282.86,
+				'temp_max'   => 286.11,
+				'pressure'   => 1020,
+				'humidity'   => 89,
 			],
-			"visibility" => 10000,
-			"wind" => [
-				"speed" => 2.24,
-				"deg" => 235,
-				"gust" => 4.47
+			'visibility' => 10000,
+			'wind'       => [
+				'speed' => 2.24,
+				'deg'   => 235,
+				'gust'  => 4.47,
 			],
-			"rain" => [
-				"1h" => 0.22
+			'rain'       => [
+				'1h' => 0.22,
 			],
-			"clouds" => [
-				"all" => 96
+			'clouds'     => [
+				'all' => 96,
 			],
-			"dt" => 1664635709,
-			"sys" => [
-				"type" => 2,
-				"id" => 2003436,
-				"country" => "AU",
-				"sunrise" => 1664652678,
-				"sunset" => 1664697448
+			'dt'         => 1664635709,
+			'sys'        => [
+				'type'    => 2,
+				'id'      => 2003436,
+				'country' => 'AU',
+				'sunrise' => 1664652678,
+				'sunset'  => 1664697448,
 			],
-			"timezone" => 36000,
-			"id" => 2208303,
-			"name" => "Brookvale",
-			"cod" => 200
+			'timezone'   => 36000,
+			'id'         => 2208303,
+			'name'       => 'Brookvale',
+			'cod'        => 200,
 		];
 
-		$dependency = \Mockery::mock(Api::class);
+		$dependency = \Mockery::mock( Api::class );
 
-		$dependency->shouldReceive('get_weather')->once()->andReturn($result);
+		$dependency->shouldReceive( 'get_weather' )->once()->andReturn( $result );
 
-		$this->instance = \Mockery::mock( Plugin::class, [$dependency])->makePartial();
+		$this->instance = \Mockery::mock( Plugin::class, [ $dependency ] )->makePartial();
 
 		expect( '__' )->with( \Mockery::type( 'string' ), 'valerii-vasyliev-weather-widget' )->atLeast()->once()->andReturn( 'translated' );
 
 		$this->instance->weather_dashboard_widget_render();
 	}
 
+	/**
+	 * Test load_plugin_textdomain() method
+	 */
 	public function test_load_plugin_textdomain() : void {
 
 		$expectedBaseName = 'valerii-vasyliev-weather-widget';
 
-		expect('\plugin_basename')->andReturn($expectedBaseName);
+		expect( '\plugin_basename' )->andReturn( $expectedBaseName );
 
-		expect('\load_plugin_textdomain')
+		expect( '\load_plugin_textdomain' )
 			->once()
-			->with('valerii-vasyliev-weather-widget', false, './languages/');
+			->with( 'valerii-vasyliev-weather-widget', false, './languages/' );
 
 		$this->instance->load_plugin_textdomain();
 	}

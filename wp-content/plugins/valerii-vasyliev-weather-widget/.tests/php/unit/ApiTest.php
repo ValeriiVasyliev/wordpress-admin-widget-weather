@@ -15,23 +15,29 @@ class ApiTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->instance = \Mockery::mock( Api::class)->makePartial();
+		$this->instance = \Mockery::mock( Api::class )->makePartial();
 	}
 
+	/**
+	 * Test get_weather() when data is not cached
+	 */
 	public function test_get_weather_none_cached() {
 
 		when( '\get_transient' )->justReturn( false );
 
-		when('\wp_remote_get')->justReturn(['body' => '{"test":"response"}']);
+		when( '\wp_remote_get' )->justReturn( [ 'body' => '{"test":"response"}' ] );
 
 		expect( '\set_transient' )->once()->andReturn( true );
 
 		$this->instance->get_weather();
 	}
 
+	/**
+	 * Test get_weather() when data is cached
+	 */
 	public function test_get_weather_cached() {
 
-		when( '\get_transient' )->justReturn(['test' => 'response']);
+		when( '\get_transient' )->justReturn( [ 'test' => 'response' ] );
 
 		expect( '\wp_remote_get' )->never();
 
