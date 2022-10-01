@@ -79,21 +79,22 @@ class Plugin {
 
 		$data = $this->api->get_weather();
 
-		$today_temp = number_format( $data['main']['temp'], 1 );
-		$today_high = number_format( $data['main']['temp_max'], 1 );
-		$today_low  = number_format( $data['main']['temp_min'], 1 );
+		if ( $data ) {
+			$today_temp = number_format( $data['main']['temp'], 1 );
+			$today_high = number_format( $data['main']['temp_max'], 1 );
+			$today_low  = number_format( $data['main']['temp_min'], 1 );
 
-		$data['main']['humidity'] = round( $data['main']['humidity'], 1 );
-		$data['wind']['speed']    = round( $data['wind']['speed'], 1 );
+			$data['main']['humidity'] = round( $data['main']['humidity'], 1 );
+			$data['wind']['speed']    = round( $data['wind']['speed'], 1 );
 
-		$output  = '<div class="weather-wrap">';
-		$output .= '<div class="weather-header">';
+			$output  = '<div class="weather-wrap">';
+			$output .= '<div class="weather-header">';
 
-		$output .= $data['name'];
+			$output .= $data['name'];
 
-		$output .= '<br/>' . $today_temp . ' °' . __( 'F', 'valerii-vasyliev-weather-widget' ) . '</div>';
+			$output .= '<br/>' . $today_temp . ' °' . __( 'F', 'valerii-vasyliev-weather-widget' ) . '</div>';
 
-		$output .= '
+			$output .= '
 				<div class="weather-todays-stats">
 					<div class="awe_desc">' . $data['weather'][0]['description'] . '</div>
 						<div class="awe_humidty">humidity: ' . $data['main']['humidity'] . '% </div>
@@ -102,10 +103,11 @@ class Plugin {
 					</div>
 			 </div>';
 
-		$output .= '</div>';
+			$output .= '</div>';
 
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo $output;
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $output;
+		}
 	}
 
 	/**
