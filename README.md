@@ -1,6 +1,6 @@
-# WordPress skeleton
+# WordPress Weather Dashboard Widget
 
-A skeleton WordPress project to be used as a base for new WordPress projects. 
+WordPress Weather Dashboard Widget
 
 ## Table of Contents
 
@@ -8,9 +8,6 @@ A skeleton WordPress project to be used as a base for new WordPress projects.
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [Structure](#structure)
-* [PHP Coding Standard (PHPCS)](#php-coding-standard)
-* [Clean up code with PHPCBF](#clean-up-code-with-phpcbf)
-* [PHP unit tests](#php-unit-tests)
 
 ## Sites
 
@@ -51,38 +48,3 @@ composer.json                                                 # → Composer dep
 README.md                                                     # → Readme MD for repository.
 wp-cli.yml                                                    # → Config file for wp-cli
 ```
-
-## PHP Coding Standard
-
-Custom PHPCS your can find in the `.phpcs.xml`.
-
-Your can check PHPCS using a CLI:
-```
-composer cs
-```
-
-## Clean up code with PHPCBF
-
-Automatically  fix  as  many sniff violations as possible.
-
-Your can check PHPCBF using a CLI:
-```
-composer cs-fix
-```
-
-
-## PHP unit tests
-
-For running use a CLI command:
-```
-composer unit
-```
-
-- Main configuration file `.tests/php/unit.suite.yml`
-- Unit tests inside `.tests/php/unit/*` folder.
-- Bootstrap file `.tests/php/unit/_bootstrap.php`
-- Each filename for test class must have a suffix on `*Test.php`.
-- Each test class must extend a `PluginNameUnitTests\TestCase` class.
-- You can also add some code to `PluginNameUnitTests\TestCase.php`
-- Each test method must have prefix `test_`
-- Additional files for autoloading in tests running you can add to `.codeception/_support/*` folder.
