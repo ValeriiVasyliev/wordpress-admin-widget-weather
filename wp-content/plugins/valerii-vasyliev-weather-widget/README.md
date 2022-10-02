@@ -10,6 +10,9 @@ WordPress Weather Dashboard Widget
 * [PHP Coding Standard (PHPCS)](#php-coding-standard)
 * [Clean up code with PHPCBF](#clean-up-code-with-phpcbf)
 * [PHP unit tests](#php-unit-tests)
+* [Brief justification](#brief-justification)
+* [Testing](#testing)
+* [How long the test took to complete](#how-long-the-test-took-to-complete)
 
 ## Requirements
 
@@ -65,3 +68,37 @@ composer unit
 - You can also add some code to `WeatherWidgetTests\TestCase.php`
 - Each test method must have prefix `test_`
 - Additional files for autoloading in tests running you can add to `.codeception/_support/*` folder.
+
+## Brief 
+
+The key technical solutions are working with API from api.openweathermap.org and using a transient cache.
+
+Also when running the plugin class
+
+```
+( new Plugin( new Api() ) )->init();
+```
+
+I am passing the API class as a parameter, so in the future, it will be possible to change the source of obtaining data to a class for obtaining data from a file, from a database, etc.
+
+## Testing
+
+Check situations
+
+1. empty settings /wp-admin/options-general.php
+
+2. wrong API key
+
+3. wrong city name
+
+4. check cache
+
+5. validation of unit tests
+
+```
+composer unit
+```
+
+## How long the test took to complete
+
+In total, it took me about 10 hours. This time includes preparing the project for deployment, writing unit tests
