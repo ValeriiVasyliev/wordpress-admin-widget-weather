@@ -75,12 +75,24 @@ class PluginTest extends TestCase {
 	 */
 	public function test_add_dashboard_widgets() : void {
 
+		expect( '\get_option' )
+			->once()
+			->with( 'valerii_vasyliev_weather_widget_name_options' )
+			->andReturn(
+				[
+					'apikey'       => '123456',
+					'default_city' => 'brookvale,australia',
+				]
+			);
+
 		expect( '\esc_html__' )
 			->with( \Mockery::type( 'string' ), 'valerii-vasyliev-weather-widget' )
 			->atLeast()
 			->andReturn( 'translated' );
 
-		when( '\wp_add_dashboard_widget' )->justReturn( true );
+		expect( '\wp_add_dashboard_widget' )
+			->once()
+			->andReturn( true );
 
 		$this->instance->add_dashboard_widgets();
 	}

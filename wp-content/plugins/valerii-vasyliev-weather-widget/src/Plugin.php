@@ -65,11 +65,18 @@ class Plugin {
 	 * Add a widget to the dashboard
 	 */
 	public function add_dashboard_widgets() : void {
-		wp_add_dashboard_widget(
-			'weather_dashboard_widget',                          // Widget slug.
-			esc_html__( 'Weather Dashboard Widget', 'valerii-vasyliev-weather-widget' ), // Title.
-			[ $this, 'weather_dashboard_widget_render' ]                    // Display function.
-		);
+
+		$options      = get_option( 'valerii_vasyliev_weather_widget_name_options' );
+		$apikey       = $options['apikey'] ?? '';
+		$default_city = $options['default_city'] ?? '';
+
+		if ( '' !== $apikey && '' !== $default_city ) {
+			wp_add_dashboard_widget(
+				'weather_dashboard_widget',                          // Widget slug.
+				esc_html__( 'Weather Dashboard Widget', 'valerii-vasyliev-weather-widget' ), // Title.
+				[ $this, 'weather_dashboard_widget_render' ]                    // Display function.
+			);
+		}
 	}
 
 	/**
