@@ -27,6 +27,10 @@ class ApiTest extends TestCase {
 
 		when( '\wp_remote_get' )->justReturn( [ 'body' => '{"test":"response"}' ] );
 
+		when( '\is_wp_error' )->justReturn( false );
+
+		when( '\wp_remote_retrieve_response_code' )->justReturn( 200 );
+
 		expect( '\set_transient' )->once()->andReturn( true );
 
 		$this->instance->get_weather();
